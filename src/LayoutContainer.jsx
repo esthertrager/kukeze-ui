@@ -1,5 +1,6 @@
 import React from 'react';
 import App from './App';
+import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router,
   Link
@@ -108,5 +109,9 @@ class LayoutContainer extends React.Component {
 		);
 	}
 }
+
+LayoutContainer.propTypes = {
+    user: PropTypes.object.isRequired
+};
 
 export default LayoutContainer;

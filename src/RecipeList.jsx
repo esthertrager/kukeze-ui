@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class RecipeList extends React.Component {
@@ -23,8 +24,9 @@ class RecipeList extends React.Component {
 }
 
 RecipeList.propTypes = {
-	onClickDeleteRecipe: React.PropTypes.func.isRequired,
-	recipes: React.PropTypes.array.isRequired
+	onClickDeleteRecipe: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+	recipes: PropTypes.array.isRequired
 };
 
 export default RecipeList;

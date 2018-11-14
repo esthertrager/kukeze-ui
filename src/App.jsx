@@ -4,6 +4,7 @@ import Recipe from './Recipe.jsx';
 import Profile from './Profile.jsx';
 import ScaleRecipe from './ScaleRecipe.jsx';
 import MakeRecipe from './MakeRecipe.jsx';
+import PropTypes from 'prop-types';
 
 import {
   BrowserRouter as Router,
@@ -163,6 +164,7 @@ class App extends React.Component {
 
           <Route path="/recipes/:id/scale" render={({ match }) => {
             const recipe = this.state.recipes.find((_recipe) => {
+
               return _recipe.id === match.params.id;
             });
             return (
@@ -173,7 +175,7 @@ class App extends React.Component {
               />
             );
           }} />
-          
+
           <Route path="/recipes/:id" render={({ match }) => {
             const recipe = this.state.recipes.find((_recipe) => {
               return _recipe.id === match.params.id;
@@ -195,6 +197,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
+  user: PropTypes.object.isRequired,
 };
 
 export default App;

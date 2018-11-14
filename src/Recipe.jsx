@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AddEditRecipe from './AddEditRecipe.jsx';
 import ScaleRecipe from './ScaleRecipe.jsx';
@@ -57,7 +58,7 @@ class Recipe extends React.Component {
 	    	<ul>{ingredients}</ul>
         <div>{total.quantity} {total.unit}</div>
         <div>{recipe.directions}</div>
-        {this.props.user && this.props.user._id === this.props.recipe.owner._id ? 
+        {this.props.user && this.props.user._id === this.props.recipe.owner._id ?
           <button className="btn" onClick={this.onClickAddEditRecipe}>Edit Recipe</button> : '' }
         <Link to={`${this.props.match.url}/scale`}>Scale Recipe</Link>
 	    </div>
@@ -66,8 +67,9 @@ class Recipe extends React.Component {
 }
 
 Recipe.propTypes = {
-    recipe: React.PropTypes.object.isRequired,
-    onClickSaveRecipe: React.PropTypes.func.isRequired
+    recipe: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    onClickSaveRecipe: PropTypes.func.isRequired
 };
 
 export default Recipe;

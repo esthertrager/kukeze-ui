@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactAutocomplete from 'react-autocomplete';
 import convert from 'recipe-unit-converter';
 
@@ -122,7 +123,7 @@ class AddEditRecipe extends React.Component {
 			});
 		recipe.total.unit= allUnits[recipe.total.unit.toLowerCase()];
 
-		this.props.onClickSaveRecipe(event, recipe)
+		this.props.onClickSaveRecipe(event, recipe);
 
 	}
 
@@ -132,8 +133,8 @@ class AddEditRecipe extends React.Component {
 				return {
 					id: unit.abbr,
 					label: unit.plural
-				}
-			})
+				};
+			});
 
 		return (
 			<ReactAutocomplete
@@ -150,7 +151,7 @@ class AddEditRecipe extends React.Component {
 		        	position: 'relative'
 		        }}
 		        renderMenu={children => (
-		            <div 
+		            <div
 		            className="menu"
 		            style={{
 						  position: 'absolute',
@@ -181,10 +182,10 @@ class AddEditRecipe extends React.Component {
 
   	render() {
   		const total = this.state.total || {};
-
+  		const heading = this.props.recipe.id ? 'Edit Recipe': 'Add Recipe';
 	  	return (
 	  		<div>
-	  		<h3>Edit Recipe</h3>
+	  		  <h3>{heading}</h3>
 		  		<form>
 				  <div className="form-group">
 				    <label htmlFor="name">Recipe Name</label>
@@ -248,8 +249,8 @@ class AddEditRecipe extends React.Component {
 }
 
 AddEditRecipe.propTypes = {
-	recipe: React.PropTypes.object.isRequired,
-	onClickSaveRecipe: React.PropTypes.func.isRequired
+	recipe: PropTypes.object.isRequired,
+	onClickSaveRecipe: PropTypes.func.isRequired
 };
 
 export default AddEditRecipe;

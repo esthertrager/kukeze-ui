@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Profile extends React.Component {
 	constructor(props) {
@@ -14,6 +15,7 @@ class Profile extends React.Component {
 	onChangeUserName(e) {
 		const name = e.target.value;
 		const user = Object.assign({}, this.state.user);
+
 		user.name = name;
 		this.setState({ user });
 	}
@@ -44,11 +46,11 @@ class Profile extends React.Component {
 	  	<form>
 	  	  <div className="form-group">
 	  	    <label htmlFor="username">Username</label>
-	  	    <input 
+	  	    <input
 	  	    	type="text"
 	  	    	className="form-control"
 	  	    	id="username"
-	  	    	placeholder="Username" 
+	  	    	placeholder="Username"
 	  	    	onChange={this.onChangeUserName}
 	  	    	value={this.state.user.name}/>
 	  	  </div>
@@ -60,5 +62,9 @@ class Profile extends React.Component {
 	  );
 	}
 }
+
+Profile.propTypes = {
+    user: PropTypes.object.isRequired
+};
 
 export default Profile;

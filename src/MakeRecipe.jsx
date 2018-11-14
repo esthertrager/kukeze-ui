@@ -1,6 +1,7 @@
 import React from 'react';
 import convert from 'recipe-unit-converter';
 import clone from 'clone';
+import PropTypes from 'prop-types';
 
 class MakeRecipe extends React.Component {
 	constructor(props) {
@@ -20,10 +21,12 @@ class MakeRecipe extends React.Component {
      	const amount = parseFloat(inputAmount);
         let scaledRecipe = Object.assign({}, this.state);
         let newAmount;
+
         if (!isNaN(amount) && amount > 0) {
         	const oldValue = this.props.recipe.ingredients[index].amount;
 		    const amountScalingFactor = amount / oldValue;
 		    const unitScalingFactor = convert(1).from(this.props.recipe.ingredients[index].unit).to(unit);
+
 		    newAmount = unitScalingFactor * this.props.recipe.ingredients[index].amount;
 		    newAmount = +newAmount.toFixed(2);
         }
@@ -48,9 +51,10 @@ class MakeRecipe extends React.Component {
         	const oldValue = this.props.recipe.total.quantity;
 		    const amountScalingFactor = amount / oldValue;
 		    const unitScalingFactor = convert(1).from(this.props.recipe.total.unit).to(unit);
+
 		    newAmount = unitScalingFactor * this.props.recipe.total.quantity;
 		    newAmount = +newAmount.toFixed(2);
-		    
+
         }
 
 		const total = {
@@ -71,17 +75,18 @@ class MakeRecipe extends React.Component {
 				<option>{value}</option>
 			);
 		}
-		
-		const nounType = parseInt(amount) === 1 ? 'singular' : 'plural';
+
+		const nounType = parseInt(amount, 10) === 1 ? 'singular' : 'plural';
 		const unitDescription = convert().describe(value);
 		const unitType = unitDescription.measure;
 		const unitPossibilities = convert().possibilities(unitType);
+
 		return unitPossibilities.map((unit) => {
 			const unitDescribe = convert().describe(unit);
-			
+
 			return (
 				<option key={unit} value={unit}>{unitDescribe[nounType]}</option>
-			)
+			);
 		});
 	}
 
@@ -93,10 +98,10 @@ class MakeRecipe extends React.Component {
 			return (
 				<div className="form-row form-group" key={index}>
 					<div className="form-check">
-					  <input className="form-check-input position-static" 
-					  		type="checkbox" 
-					  		id="blankCheckbox" 
-					  		value="option1" 
+					  <input className="form-check-input position-static"
+					  		type="checkbox"
+					  		id="blankCheckbox"
+					  		value="option1"
 					  		onChange={(event) => this.handleCheckChange(event, index)} />
 					</div>
 					<div className="form-group col-3">
@@ -113,7 +118,7 @@ class MakeRecipe extends React.Component {
 						{index === 0 ? <label htmlFor={`ingredient_unit_${index}`}>Unit</label> : ''}
 						<select
 							value={ingredient.unit}
-							className="form-control" 
+							className="form-control"
 							id={`ingredient_unit_${index}`}
 						  	name={`ingredient_unit_${index}`}
 						  	onChange={(e) => this.handleIngredientChange(ingredient.amount, e.target.value, index)} >
@@ -166,7 +171,7 @@ class MakeRecipe extends React.Component {
 						<label htmlFor="exampleFormControlSelect1">Unit</label>
 						<select
 							value={total.unit}
-							className="form-control" 
+							className="form-control"
 							id={`total_unit`}
 						    name={`total_unit`}
 						    onChange={(e) => this.handleTotalChange(total.quantity, e.target.value)}>
@@ -187,10 +192,13 @@ class MakeRecipe extends React.Component {
 				  </div>
 				</form>
 			</div>
-	  	); 	
+	  	);
     }
 }
 
-
+MakeRecipe.propTypes = {
+	recipe: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
+};
 
 export default MakeRecipe;

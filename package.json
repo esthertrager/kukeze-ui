@@ -25,7 +25,7 @@
     "dev": "./node_modules/.bin/webpack --watch",
     "build": "./node_modules/.bin/webpack --config=webpack.build.config.js",
     "publish": "npm run build && ./deploy.sh",
-    "test": "jest",
+    "test": "jest --u",
     "test:ci": "watch 'npm run test' src/"
   },
   "devDependencies": {

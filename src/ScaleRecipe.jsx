@@ -1,5 +1,6 @@
 'use strict';
 import React from 'react';
+import PropTypes from 'prop-types';
 import convert from 'recipe-unit-converter';
 import MakeRecipe from './MakeRecipe';
 import { Link } from 'react-router-dom';
@@ -15,24 +16,27 @@ class ScaleRecipe extends React.Component {
     scale(scalingFactor) {
     	const scaledIngredients = this.props.recipe.ingredients.map((ingredient, index) => {
         const ingredientCopy = Object.assign({}, ingredient);
+
         	ingredientCopy.amount = scalingFactor * parseFloat(ingredientCopy.amount);
 
         	if (this.props.recipe.ingredients[index].unit !== this.state.ingredients[index].unit) {
         		const unitScalingFactor = convert(1).from(this.props.recipe.ingredients[index].unit).to(this.state.ingredients[index].unit);
+
         		ingredientCopy.amount = unitScalingFactor * parseFloat(ingredientCopy.amount);
         		ingredientCopy.unit = this.state.ingredients[index].unit;
         	}
-
         ingredientCopy.amount = +ingredientCopy.amount.toFixed(2);
-        	
+
         	return ingredientCopy;
         });
 
         const scaledTotal = Object.assign({}, this.props.recipe.total);
+
         scaledTotal.quantity = scaledTotal.quantity * parseFloat(scalingFactor);
 
 		if (this.props.recipe.total.unit !== this.state.total.unit) {
     		const unitScalingFactor = convert(1).from(this.props.recipe.total.unit).to(this.state.total.unit);
+
     		scaledTotal.quantity = unitScalingFactor * parseFloat(scaledTotal.quantity);
     		scaledTotal.unit = this.state.total.unit;
     	}
@@ -52,7 +56,13 @@ class ScaleRecipe extends React.Component {
         if (!isNaN(amount) && amount > 0) {
         	const oldValue = this.props.recipe.ingredients[index].amount;
 		    const amountScalingFactor = amount / oldValue;
-		    const unitScalingFactor = convert(1).from(unit).to(this.props.recipe.ingredients[index].unit);
+		    let unitScalingFactor = 1;
+
+		    try {
+		    	unitScalingFactor = convert(1).from(unit).to(this.props.recipe.ingredients[index].unit);
+		    } catch (e) {
+		    	console.warn(e);
+		    }
 
 		    scaledRecipe = this.scale(amountScalingFactor * unitScalingFactor);
         }
@@ -98,17 +108,18 @@ class ScaleRecipe extends React.Component {
 				<option>{value}</option>
 			);
 		}
-		
-		const nounType = parseInt(amount) === 1 ? 'singular' : 'plural';
+
+		const nounType = parseInt(amount, 10) === 1 ? 'singular' : 'plural';
 		const unitDescription = convert().describe(value);
 		const unitType = unitDescription.measure;
 		const unitPossibilities = convert().possibilities(unitType);
+
 		return unitPossibilities.map((unit) => {
 			const unitDescribe = convert().describe(unit);
-			
+
 			return (
 				<option key={unit} value={unit}>{unitDescribe[nounType]}</option>
-			)
+			);
 		});
 	}
 
@@ -134,14 +145,12 @@ class ScaleRecipe extends React.Component {
 						{index === 0 ? <label htmlFor={`ingredient_unit_${index}`}>Unit</label> : ''}
 						<select
 							value={ingredient.unit}
-							className="form-control" 
+							className="form-control"
 							id={`ingredient_unit_${index}`}
 						  	name={`ingredient_unit_${index}`}
 						  	onChange={(e) => this.handleIngredientChange(ingredient.amount, e.target.value, index)} >
 						  	{this.renderOptions(ingredient.unit, ingredient.amount)}
 
-							  
-							  
 						</select>
 					</div>
 					<div className="form-group col-5">
@@ -191,7 +200,7 @@ class ScaleRecipe extends React.Component {
 						<label htmlFor="exampleFormControlSelect1">Unit</label>
 						<select
 							value={total.unit}
-							className="form-control" 
+							className="form-control"
 							id={`total_unit`}
 						    name={`total_unit`}
 						    onChange={(e) => this.handleTotalChange(total.quantity, e.target.value)}>
@@ -211,10 +220,16 @@ class ScaleRecipe extends React.Component {
 					    value={this.state.directions || ''} />
 				  </div>
 				</form>
-				<Link to={`/recipes/${this.props.recipe.id}/make`} onClick={()=> { console.log(this.state); sessionStorage.setItem('stateRecipe', JSON.stringify(this.state))}} className="btn btn-primary">Make It</Link>
+				<Link to={`/recipes/${this.props.recipe.id}/make`} onClick={()=> {
+					sessionStorage.setItem('stateRecipe', JSON.stringify(this.state));}} className="btn btn-primary">Make It</Link>
 			</div>
-	  	); 	
+	  	);
     }
 }
+
+ScaleRecipe.propTypes = {
+	user: PropTypes.object.isRequired,
+	recipe: PropTypes.object.isRequired
+};
 
 export default ScaleRecipe;
