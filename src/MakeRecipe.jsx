@@ -23,8 +23,6 @@ class MakeRecipe extends React.Component {
         let newAmount;
 
         if (!isNaN(amount) && amount > 0) {
-        	const oldValue = this.props.recipe.ingredients[index].amount;
-		    const amountScalingFactor = amount / oldValue;
 		    const unitScalingFactor = convert(1).from(this.props.recipe.ingredients[index].unit).to(unit);
 
 		    newAmount = unitScalingFactor * this.props.recipe.ingredients[index].amount;
@@ -48,8 +46,6 @@ class MakeRecipe extends React.Component {
         let newAmount;
 
         if (!isNaN(amount) && amount > 0) {
-        	const oldValue = this.props.recipe.total.quantity;
-		    const amountScalingFactor = amount / oldValue;
 		    const unitScalingFactor = convert(1).from(this.props.recipe.total.unit).to(unit);
 
 		    newAmount = unitScalingFactor * this.props.recipe.total.quantity;
@@ -97,15 +93,11 @@ class MakeRecipe extends React.Component {
 			}
 			return (
 				<div className="form-row form-group" key={index}>
-					<div className="form-check">
-					  <input className="form-check-input position-static"
+					<div className="form-group col-3">
+					    <input className="form-check-input"
 					  		type="checkbox"
 					  		id="blankCheckbox"
-					  		value="option1"
 					  		onChange={(event) => this.handleCheckChange(event, index)} />
-					</div>
-					<div className="form-group col-3">
-					    {index === 0 ? <label htmlFor={`ingredient_amount_${index}`}>Quantity</label> : ''}
 					    <input readOnly
 						    className="form-control"
 						    id={`ingredient_amount_${index}`}
@@ -115,7 +107,6 @@ class MakeRecipe extends React.Component {
 						    value={this.state.ingredients[index].amount || ''} />
 					</div>
 					<div className="form-group col-4">
-						{index === 0 ? <label htmlFor={`ingredient_unit_${index}`}>Unit</label> : ''}
 						<select
 							value={ingredient.unit}
 							className="form-control"
@@ -126,7 +117,6 @@ class MakeRecipe extends React.Component {
 						</select>
 					</div>
 					<div className="form-group col-5">
-					    {index === 0 ? <label htmlFor={`ingredient_name_${index}`}>Name</label> : ''}
 					    <input
 					 		readOnly
 						    className="form-control"
@@ -172,8 +162,8 @@ class MakeRecipe extends React.Component {
 						<select
 							value={total.unit}
 							className="form-control"
-							id={`total_unit`}
-						    name={`total_unit`}
+							id="total_unit"
+						    name="total_unit"
 						    onChange={(e) => this.handleTotalChange(total.quantity, e.target.value)}>
 						  {this.renderOptions(total.unit, total.quantity)}
 						</select>

@@ -56,44 +56,44 @@ class AddEditRecipe extends React.Component {
 
 	renderIngredients() {
 		return this.state.ingredients.map((ingredient, index) => {
-			if (!ingredient) {
-				return;
+			if (ingredient) {
+				const amountInputName = `ingredient_amount_${index}`;
+				const unitInputName = `ingredient_unit_${index}`;
+
+				return (
+					<div className="form-row form-group" key={index}>
+						<div className="form-group col-3">
+						    {index === 0 ? <label htmlFor={amountInputName}>Quantity</label> : ''}
+						    <input
+							    className="form-control"
+							    id={amountInputName}
+							    name={amountInputName}
+							    onChange={e => this.handleInputChange(e.target.value, e.target.name)}
+							    placeholder="Quantity"
+							    type="text"
+							    value={ingredient.amount || ''} />
+						</div>
+						<div className="form-group col-4" style={{ zIndex: 1029 - index, backgroundColor: 'white' }}>
+							{index === 0 ? <label>Unit</label> : ''}
+						{this.renderUnitField(ingredient.unit, unitInputName)}
+						</div>
+
+						<div className="form-group col-5">
+						    {index === 0 ? <label htmlFor={`ingredient_name_${index}`}>Name</label> : ''}
+						    <input
+							    className="form-control"
+							    id={`ingredient_name_${index}`}
+							    onChange={e => this.handleInputChange(e.target.value, e.target.name)}
+							    name={`ingredient_name_${index}`}
+							    placeholder="Name"
+							    type="text"
+							    value={this.state.ingredients[index].name || ''} />
+						</div>
+					</div>
+				);
 			}
-			const amountInputName = `ingredient_amount_${index}`;
-			const unitInputName = `ingredient_unit_${index}`;
-			let zIndex = 1029;
-			return (
-				<div className="form-row form-group" key={index}>
-					<div className="form-group col-3">
-					    {index === 0 ? <label htmlFor={amountInputName}>Quantity</label> : ''}
-					    <input
-						    className="form-control"
-						    id={amountInputName}
-						    name={amountInputName}
-						    onChange={e => this.handleInputChange(e.target.value, e.target.name)}
-						    placeholder="Quantity"
-						    type="text"
-						    value={ingredient.amount || ''} />
-					</div>
-					<div className="form-group col-4" style={{zIndex:1029 - index, backgroundColor:'white'}}>
-						{index === 0 ? <label>Unit</label> : ''}
-					{this.renderUnitField(ingredient.unit, unitInputName)}
-					</div>
 
-
-					<div className="form-group col-5">
-					    {index === 0 ? <label htmlFor={`ingredient_name_${index}`}>Name</label> : ''}
-					    <input
-						    className="form-control"
-						    id={`ingredient_name_${index}`}
-						    onChange={e => this.handleInputChange(e.target.value, e.target.name)}
-						    name={`ingredient_name_${index}`}
-						    placeholder="Name"
-						    type="text"
-						    value={this.state.ingredients[index].name || ''} />
-					</div>
-				</div>
-			);
+			return null;
 		});
 	}
 
@@ -105,23 +105,24 @@ class AddEditRecipe extends React.Component {
 				map[unit.singular.toLowerCase()] = unit.abbr;
 				map[unit.plural.toLowerCase()] = unit.abbr;
 				map[unit.abbr.toLowerCase()] = unit.abbr;
-				return map
+				return map;
 			}, {});
 
 		recipe.ingredients = recipe.ingredients
 			.filter((ingredient) => {
-				return ingredient && (ingredient.unit || ingredient.amount || ingredient.name)
+				return ingredient && (ingredient.unit || ingredient.amount || ingredient.name);
 			})
 			.map((ingredient) => {
 				if (!ingredient) {
 					return null;
 				}
 				const ingredientWithAbbr = Object.assign({}, ingredient);
+
 				ingredientWithAbbr.unit = allUnits[ingredientWithAbbr.unit.toLowerCase()] || ingredientWithAbbr.unit;
-				
+
 				return ingredientWithAbbr;
 			});
-		recipe.total.unit= allUnits[recipe.total.unit.toLowerCase()];
+		recipe.total.unit = allUnits[recipe.total.unit.toLowerCase()];
 
 		this.props.onClickSaveRecipe(event, recipe);
 
@@ -158,7 +159,7 @@ class AddEditRecipe extends React.Component {
 						  boxSizing: 'border-box',
 						  width: '100%',
 						  border: '1px solid #cccccc',
-						  zIndex:9999,
+						  zIndex: 9999,
 						  backgroundColor: 'white'
 						}}>
 		              {children}
@@ -182,7 +183,8 @@ class AddEditRecipe extends React.Component {
 
   	render() {
   		const total = this.state.total || {};
-  		const heading = this.props.recipe.id ? 'Edit Recipe': 'Add Recipe';
+  		const heading = this.props.recipe.id ? 'Edit Recipe' : 'Add Recipe';
+
 	  	return (
 	  		<div>
 	  		  <h3>{heading}</h3>
@@ -202,7 +204,6 @@ class AddEditRecipe extends React.Component {
 				  <div className="row">
 				  	<div className="col-12">
 				  		<h4>Ingredients</h4>
-				  		
 				  	</div>
 				  </div>
 				  {this.renderIngredients()}
@@ -226,7 +227,6 @@ class AddEditRecipe extends React.Component {
 					  	<label htmlFor="total_unit">Unit</label>
 					  	{this.renderUnitField(total.unit, 'total_unit')}
 					  </div>
-					  
 					</div>
 				  <div className="form-group">
 				    <label htmlFor="name">Directions</label>

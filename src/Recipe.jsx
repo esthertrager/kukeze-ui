@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AddEditRecipe from './AddEditRecipe.jsx';
-import ScaleRecipe from './ScaleRecipe.jsx';
 import moment from 'moment';
 
 class Recipe extends React.Component {
@@ -42,12 +41,13 @@ class Recipe extends React.Component {
 
     const recipe = this.props.recipe;
     const ingredients = recipe.ingredients.map((ingredient, index) => {
-      if (!ingredient) {
-        return;
+      if (ingredient) {
+        return (
+          <li key={index}> {ingredient.amount} {ingredient.unit || ''} {ingredient.name}</li>
+        );
       }
-      return (
-        <li key={index}> {ingredient.amount} {ingredient.unit || ''} {ingredient.name}</li>
-      );
+
+      return null;
     });
     const total = recipe.total || {};
 
@@ -67,9 +67,10 @@ class Recipe extends React.Component {
 }
 
 Recipe.propTypes = {
+    match: PropTypes.object.isRequired,
+    onClickSaveRecipe: PropTypes.func.isRequired,
     recipe: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
-    onClickSaveRecipe: PropTypes.func.isRequired
+    user: PropTypes.object.isRequired
 };
 
 export default Recipe;

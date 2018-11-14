@@ -7,7 +7,6 @@ import MakeRecipe from './MakeRecipe.jsx';
 import PropTypes from 'prop-types';
 
 import {
-  BrowserRouter as Router,
   Route,
   Link,
   Switch
@@ -98,6 +97,22 @@ class App extends React.Component {
     });
   }
 
+  renderLoginButton() {
+    if (this.state.user) {
+      return (
+       <a href="/api/auth/logout">Logout</a>
+      );
+    }
+
+    return (
+      <div>
+        <a href="/api/auth/google"><img src="loginGoogle.png" style={{ height: '40px' }} /></a>
+        <br/>
+        <a href="/api/auth/facebook"><img src="loginfb.png" style={{ height: '40px' }} /></a>
+      </div>
+    );
+  }
+
   render() {
     return (
         <Switch>
@@ -108,9 +123,7 @@ class App extends React.Component {
                 <h2>Create, Share, and Scale Your Recipes</h2>
                 {this.state.user ? <Link to="/recipes">Go to My Recipes</Link> : <Link to="/recipes">Recipes</Link>}
                 <br/>
-                {this.state.user ? <a href="/api/auth/logout">Logout</a> : <div><a href="/api/auth/google"><img src="loginGoogle.png" style={{ height: '40px' }} /></a>
-                <br/>
-                <a href="/api/auth/facebook"><img src="loginfb.png" style={{ height: '40px' }} /></a></div>}
+                {this.renderLoginButton()}
               </div>
             );
           }} />
@@ -155,6 +168,7 @@ class App extends React.Component {
             const recipe = this.state.recipes.find((_recipe) => {
               return _recipe.id === match.params.id;
             });
+
             return (
               <MakeRecipe
                 recipe={recipe}
@@ -164,9 +178,9 @@ class App extends React.Component {
 
           <Route path="/recipes/:id/scale" render={({ match }) => {
             const recipe = this.state.recipes.find((_recipe) => {
-
               return _recipe.id === match.params.id;
             });
+
             return (
               <ScaleRecipe
                 recipe={recipe}
@@ -198,6 +212,7 @@ class App extends React.Component {
 
 App.propTypes = {
   user: PropTypes.object.isRequired,
+  recipes: PropTypes.array.isRequired
 };
 
 export default App;

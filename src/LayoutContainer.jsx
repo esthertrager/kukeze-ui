@@ -40,7 +40,7 @@ class LayoutContainer extends React.Component {
 	renderApp() {
 		if (this.state.recipes && this.state.user !== undefined) {
 			return (
-				<App 
+				<App
 					user={this.state.user}
 					recipes={this.state.recipes}
 				/>
@@ -63,17 +63,20 @@ class LayoutContainer extends React.Component {
 		const userDropdown = () => (
 			<ul className="navbar-nav ml-auto">
 			<li className="nav-item active dropdown">
-				<a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				  {this.state.user.name}
-				</a>
+				<a
+					className="nav-link dropdown-toggle"
+					href="#" id="navbarDropdown"
+					role="button"
+					data-toggle="dropdown"
+					aria-haspopup="true">{this.state.user.name}</a>
 				<div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 				  <Link className="dropdown-item" to="/profile">Profile</Link>
-				  <div className="dropdown-divider"></div>
+				  <div className="dropdown-divider" />
 				  <a className="dropdown-item" href="/api/auth/logout">Logout</a>
 				</div>
 			</li>
 			</ul>
-		)
+		);
 
 		return this.state.user ? userDropdown() : loginLink();
 	}
@@ -84,20 +87,26 @@ class LayoutContainer extends React.Component {
 				<div>
 					<nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 					  <Link className="navbar-brand" to="/">Kukeze</Link>
-					  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-					    <span className="navbar-toggler-icon"></span>
+					  <button
+					  	className="navbar-toggler"
+					  	type="button"
+					  	data-toggle="collapse"
+					  	data-target="#navbarCollapse"
+					  	aria-controls="navbarCollapse"
+					  	aria-expanded="false"
+					  	aria-label="Toggle navigation">
+					    <span className="navbar-toggler-icon" />
 					  </button>
 					  <div className="collapse navbar-collapse" id="navbarCollapse">
 					    <ul className="navbar-nav mr-auto">
 					      <li className="nav-item active">
 					      	<Link className="nav-link" to="/recipes">Recipes</Link>
 					      </li>
-					     
 					    </ul>
                 {this.renderUserDropdown()}
 					  </div>
 					</nav>
-					<div className="container" style={{paddingTop:'70px'}}>
+					<div className="container" style={{ paddingTop: '70px' }}>
 					    <div className="row">
 					        <div className="col-sm">
 					            {this.renderApp()}

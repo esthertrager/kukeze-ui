@@ -2,7 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import convert from 'recipe-unit-converter';
-import MakeRecipe from './MakeRecipe';
 import { Link } from 'react-router-dom';
 
 class ScaleRecipe extends React.Component {
@@ -20,7 +19,9 @@ class ScaleRecipe extends React.Component {
         	ingredientCopy.amount = scalingFactor * parseFloat(ingredientCopy.amount);
 
         	if (this.props.recipe.ingredients[index].unit !== this.state.ingredients[index].unit) {
-        		const unitScalingFactor = convert(1).from(this.props.recipe.ingredients[index].unit).to(this.state.ingredients[index].unit);
+        		const unitScalingFactor = convert(1)
+        			.from(this.props.recipe.ingredients[index].unit)
+        			.to(this.state.ingredients[index].unit);
 
         		ingredientCopy.amount = unitScalingFactor * parseFloat(ingredientCopy.amount);
         		ingredientCopy.unit = this.state.ingredients[index].unit;
@@ -201,8 +202,8 @@ class ScaleRecipe extends React.Component {
 						<select
 							value={total.unit}
 							className="form-control"
-							id={`total_unit`}
-						    name={`total_unit`}
+							id="total_unit"
+						    name="total_unit"
 						    onChange={(e) => this.handleTotalChange(total.quantity, e.target.value)}>
 						  {this.renderOptions(total.unit, total.quantity)}
 						</select>
@@ -220,8 +221,12 @@ class ScaleRecipe extends React.Component {
 					    value={this.state.directions || ''} />
 				  </div>
 				</form>
-				<Link to={`/recipes/${this.props.recipe.id}/make`} onClick={()=> {
-					sessionStorage.setItem('stateRecipe', JSON.stringify(this.state));}} className="btn btn-primary">Make It</Link>
+				<Link
+					to={`/recipes/${this.props.recipe.id}/make`}
+					onClick={()=> {
+						sessionStorage.setItem('stateRecipe', JSON.stringify(this.state));
+					}}
+					className="btn btn-primary">Make It</Link>
 			</div>
 	  	);
     }
