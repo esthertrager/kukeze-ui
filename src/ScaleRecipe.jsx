@@ -86,7 +86,13 @@ class ScaleRecipe extends React.Component {
         if (!isNaN(amount) && amount > 0) {
         	const oldValue = this.props.recipe.total.quantity;
 		    const amountScalingFactor = amount / oldValue;
-		    const unitScalingFactor = convert(1).from(unit).to(this.props.recipe.total.unit);
+		    let unitScalingFactor = 1;
+
+		    try {
+		    	unitScalingFactor = convert(1).from(unit).to(this.props.recipe.total.unit);
+		    } catch (e) {
+		    	console.warn(e);
+		    }
 
 		    scaledRecipe = this.scale(amountScalingFactor * unitScalingFactor);
         }

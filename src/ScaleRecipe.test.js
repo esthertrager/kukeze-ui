@@ -151,4 +151,32 @@ describe('Scale', () => {
 		expect(wrapper.find('[id="ingredient_amount_1"]').props().value).toBe(400000);
 		expect(wrapper.find('[id="total_quantity"]').props().value).toBe('800');		
 	});
+	it('changing an ingredient amount scales the recipe even with an unsupported unit', () => {
+		const recipe = {
+		  "name": "Ice Cream",
+	      "ingredients": [
+	      {
+	        "amount": "400",
+	        "unit": "g",
+	        "name": "peanut butter"
+	      },
+	      {
+	        "amount": "4",
+	        "unit": "packages",
+	        "name": "chocolate chips"
+	      }],
+	      "total": {
+	      	"unit": "g",
+	      	"quantity": "600"
+	      },
+	      "id": 2
+		};
+
+		const wrapper = shallow(<ScaleRecipe recipe={recipe} />);
+
+		const amountInput = updateInput(wrapper, '[id="ingredient_amount_1"]', '2');
+		
+		expect(wrapper.find('[id="ingredient_amount_0"]').props().value).toBe(200);
+		expect(wrapper.find('[id="total_quantity"]').props().value).toBe(300);		
+	});
 });

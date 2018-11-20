@@ -23,9 +23,9 @@ class MakeRecipe extends React.Component {
         let newAmount;
 
         if (!isNaN(amount) && amount > 0) {
-		    const unitScalingFactor = convert(1).from(this.props.recipe.ingredients[index].unit).to(unit);
+		    const unitScalingFactor = convert(1).from(scaledRecipe.ingredients[index].unit).to(unit);
 
-		    newAmount = unitScalingFactor * this.props.recipe.ingredients[index].amount;
+		    newAmount = unitScalingFactor * scaledRecipe.ingredients[index].amount;
 		    newAmount = +newAmount.toFixed(2);
         }
 
