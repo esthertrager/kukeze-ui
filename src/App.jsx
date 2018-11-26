@@ -1,12 +1,12 @@
-import React from "react";
-import RecipeList from "./RecipeList.jsx";
-import Recipe from "./Recipe.jsx";
-import Profile from "./Profile.jsx";
-import ScaleRecipe from "./ScaleRecipe.jsx";
-import MakeRecipe from "./MakeRecipe.jsx";
-import PropTypes from "prop-types";
+import React from 'react';
+import RecipeList from './RecipeList.jsx';
+import Recipe from './Recipe.jsx';
+import Profile from './Profile.jsx';
+import ScaleRecipe from './ScaleRecipe.jsx';
+import MakeRecipe from './MakeRecipe.jsx';
+import PropTypes from 'prop-types';
 
-import { Route, Link, Switch } from "react-router-dom";
+import { Route, Link, Switch } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,11 +23,11 @@ class App extends React.Component {
 
   onClickDeleteRecipe(id) {
     fetch(`/api/recipes/${id}`, {
-      credentials: "include",
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      method: "DELETE"
+      method: 'DELETE'
     }).then(response => {
       if (!response.ok) {
         throw response;
@@ -46,13 +46,13 @@ class App extends React.Component {
 
   onClickSaveRecipe(event, recipe) {
     event.preventDefault();
-    if ("id" in recipe) {
+    if ('id' in recipe) {
       return fetch(`/api/recipes/${recipe.id}`, {
-        credentials: "include",
+        credentials: 'include',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         },
-        method: "PUT",
+        method: 'PUT',
         body: JSON.stringify(recipe)
       })
         .then(response => {
@@ -74,12 +74,12 @@ class App extends React.Component {
         });
     }
 
-    return fetch("/api/recipes", {
-      credentials: "include",
+    return fetch('/api/recipes', {
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(recipe)
     })
       .then(response => {
@@ -105,11 +105,11 @@ class App extends React.Component {
     return (
       <div>
         <a href="/api/auth/google">
-          <img src="loginGoogle.png" style={{ height: "40px" }} />
+          <img src="loginGoogle.png" style={{ height: '40px' }} />
         </a>
         <br />
         <a href="/api/auth/facebook">
-          <img src="loginfb.png" style={{ height: "40px" }} />
+          <img src="loginfb.png" style={{ height: '40px' }} />
         </a>
       </div>
     );
@@ -155,7 +155,7 @@ class App extends React.Component {
                 {this.state.user ? (
                   <Link to="/recipes/create">Add Recipe</Link>
                 ) : (
-                  ""
+                  ''
                 )}
                 <RecipeList
                   recipes={this.state.recipes}
@@ -172,7 +172,7 @@ class App extends React.Component {
           path="/recipes/create"
           render={() => {
             const newRecipe = {
-              name: "",
+              name: '',
               ingredients: [{}]
             };
 

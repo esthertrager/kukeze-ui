@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import ReactAutocomplete from "react-autocomplete";
-import convert from "recipe-unit-converter";
+import React from 'react';
+import PropTypes from 'prop-types';
+import ReactAutocomplete from 'react-autocomplete';
+import convert from 'recipe-unit-converter';
 
 class AddEditRecipe extends React.Component {
   constructor(props) {
@@ -22,11 +22,11 @@ class AddEditRecipe extends React.Component {
   }
 
   handleInputChange(value, name) {
-    const path = name.split("_");
+    const path = name.split('_');
 
-    if (path[0] === "ingredient") {
+    if (path[0] === 'ingredient') {
       this.updateIngredient(path[1], value, path[2]);
-    } else if (path[0] === "total") {
+    } else if (path[0] === 'total') {
       this.updateTotal(path[1], value);
     } else {
       this.setState({
@@ -65,7 +65,7 @@ class AddEditRecipe extends React.Component {
               {index === 0 ? (
                 <label htmlFor={amountInputName}>Quantity</label>
               ) : (
-                ""
+                ''
               )}
               <input
                 className="form-control"
@@ -76,14 +76,14 @@ class AddEditRecipe extends React.Component {
                 }
                 placeholder="Quantity"
                 type="text"
-                value={ingredient.amount || ""}
+                value={ingredient.amount || ''}
               />
             </div>
             <div
               className="form-group col-4"
-              style={{ zIndex: 1029 - index, backgroundColor: "white" }}
+              style={{ zIndex: 1029 - index, backgroundColor: 'white' }}
             >
-              {index === 0 ? <label>Unit</label> : ""}
+              {index === 0 ? <label>Unit</label> : ''}
               {this.renderUnitField(ingredient.unit, unitInputName)}
             </div>
 
@@ -91,7 +91,7 @@ class AddEditRecipe extends React.Component {
               {index === 0 ? (
                 <label htmlFor={`ingredient_name_${index}`}>Name</label>
               ) : (
-                ""
+                ''
               )}
               <input
                 className="form-control"
@@ -102,7 +102,7 @@ class AddEditRecipe extends React.Component {
                 name={`ingredient_name_${index}`}
                 placeholder="Name"
                 type="text"
-                value={this.state.ingredients[index].name || ""}
+                value={this.state.ingredients[index].name || ''}
               />
             </div>
           </div>
@@ -117,8 +117,8 @@ class AddEditRecipe extends React.Component {
     event.preventDefault();
 
     const allUnits = [
-      ...convert().list("mass"),
-      ...convert().list("volume")
+      ...convert().list('mass'),
+      ...convert().list('volume')
     ].reduce((map, unit) => {
       map[unit.singular.toLowerCase()] = unit.abbr;
       map[unit.plural.toLowerCase()] = unit.abbr;
@@ -145,13 +145,13 @@ class AddEditRecipe extends React.Component {
 
         return ingredientWithAbbr;
       });
-    recipe.total.unit = allUnits[recipe.total.unit.toLowerCase()];
+    recipe.total.unit = allUnits[recipe.total.unit.toLowerCase()] || recipe.total.unit;
 
     this.props.onClickSaveRecipe(event, recipe);
   }
 
   renderUnitField(unitValue, inputName) {
-    const items = [...convert().list("mass"), ...convert().list("volume")].map(
+    const items = [...convert().list('mass'), ...convert().list('volume')].map(
       unit => {
         return {
           id: unit.abbr,
@@ -169,23 +169,23 @@ class AddEditRecipe extends React.Component {
         getItemValue={item => item.label}
         value={unitValue}
         inputProps={{
-          className: "form-control"
+          className: 'form-control'
         }}
         onChange={e => this.handleInputChange(e.target.value, inputName)}
         onSelect={(value, item) => this.handleInputChange(value, inputName)}
         wrapperStyle={{
-          position: "relative"
+          position: 'relative'
         }}
         renderMenu={children => (
           <div
             className="menu"
             style={{
-              position: "absolute",
-              boxSizing: "border-box",
-              width: "100%",
-              border: "1px solid #cccccc",
+              position: 'absolute',
+              boxSizing: 'border-box',
+              width: '100%',
+              border: '1px solid #cccccc',
               zIndex: 9999,
-              backgroundColor: "white"
+              backgroundColor: 'white'
             }}
           >
             {children}
@@ -193,12 +193,12 @@ class AddEditRecipe extends React.Component {
         )}
         renderItem={(item, isHighlighted) => (
           <div
-            className={`item ${isHighlighted ? "item-highlighted" : ""}`}
+            className={`item ${isHighlighted ? 'item-highlighted' : ''}`}
             style={{
-              padding: "2px 6px",
-              cursor: "default",
-              color: `${isHighlighted ? "white" : "inherit"}`,
-              backgroundColor: `${isHighlighted ? "#4095bf" : "inherit"}`
+              padding: '2px 6px',
+              cursor: 'default',
+              color: `${isHighlighted ? 'white' : 'inherit'}`,
+              backgroundColor: `${isHighlighted ? '#4095bf' : 'inherit'}`
             }}
             key={item.id}
           >
@@ -211,7 +211,7 @@ class AddEditRecipe extends React.Component {
 
   render() {
     const total = this.state.total || {};
-    const heading = this.props.recipe.id ? "Edit Recipe" : "Add Recipe";
+    const heading = this.props.recipe.id ? 'Edit Recipe' : 'Add Recipe';
 
     return (
       <div>
@@ -257,12 +257,12 @@ class AddEditRecipe extends React.Component {
                 }
                 placeholder="Quantity"
                 type="text"
-                value={total.quantity || ""}
+                value={total.quantity || ''}
               />
             </div>
             <div className="form-group col-4">
               <label htmlFor="total_unit">Unit</label>
-              {this.renderUnitField(total.unit, "total_unit")}
+              {this.renderUnitField(total.unit, 'total_unit')}
             </div>
           </div>
           <div className="form-group">
@@ -276,7 +276,7 @@ class AddEditRecipe extends React.Component {
                 this.handleInputChange(e.target.value, e.target.name)
               }
               placeholder="Directions"
-              value={this.state.directions || ""}
+              value={this.state.directions || ''}
             />
           </div>
           <button

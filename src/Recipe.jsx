@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import AddEditRecipe from "./AddEditRecipe.jsx";
-import moment from "moment";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import AddEditRecipe from './AddEditRecipe.jsx';
+import moment from 'moment';
 
 class Recipe extends React.Component {
   constructor(props) {
@@ -44,8 +44,8 @@ class Recipe extends React.Component {
       if (ingredient) {
         return (
           <li key={index}>
-            {" "}
-            {ingredient.amount} {ingredient.unit || ""} {ingredient.name}
+            {' '}
+            {ingredient.amount} {ingredient.unit || ''} {ingredient.name}
           </li>
         );
       }
@@ -69,7 +69,7 @@ class Recipe extends React.Component {
             Edit Recipe
           </button>
         ) : (
-          ""
+          ''
         )}
         <Link to={`${this.props.match.url}/scale`}>Scale Recipe</Link>
       </div>

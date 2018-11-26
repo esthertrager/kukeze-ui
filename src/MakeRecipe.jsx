@@ -1,12 +1,12 @@
-import React from "react";
-import convert from "recipe-unit-converter";
-import clone from "clone";
-import PropTypes from "prop-types";
+import React from 'react';
+import convert from 'recipe-unit-converter';
+import clone from 'clone';
+import PropTypes from 'prop-types';
 
 class MakeRecipe extends React.Component {
   constructor(props) {
     super(props);
-    this.state = JSON.parse(sessionStorage.getItem("stateRecipe"));
+    this.state = JSON.parse(sessionStorage.getItem('stateRecipe'));
   }
 
   handleCheckChange(event, index) {
@@ -73,7 +73,7 @@ class MakeRecipe extends React.Component {
       return <option>{value}</option>;
     }
 
-    const nounType = parseInt(amount, 10) === 1 ? "singular" : "plural";
+    const nounType = parseInt(amount, 10) === 1 ? 'singular' : 'plural';
     const unitDescription = convert().describe(value);
     const unitType = unitDescription.measure;
     const unitPossibilities = convert().possibilities(unitType);
@@ -110,7 +110,7 @@ class MakeRecipe extends React.Component {
               name={`ingredient_amount_${index}`}
               placeholder="Quantity"
               type="text"
-              value={this.state.ingredients[index].amount || ""}
+              value={this.state.ingredients[index].amount || ''}
             />
           </div>
           <div className="form-group col-4">
@@ -138,7 +138,7 @@ class MakeRecipe extends React.Component {
               name={`ingredient_name_${index}`}
               placeholder="Name"
               type="text"
-              value={this.state.ingredients[index].name || ""}
+              value={this.state.ingredients[index].name || ''}
             />
           </div>
         </div>
@@ -170,7 +170,7 @@ class MakeRecipe extends React.Component {
                 name="total_quantity"
                 placeholder="Quantity"
                 type="text"
-                value={total.quantity || ""}
+                value={total.quantity || ''}
               />
             </div>
             <div className="form-group col-4">
@@ -198,7 +198,7 @@ class MakeRecipe extends React.Component {
               rows="5"
               onChange={this.handleIngredientChange}
               placeholder="Directions"
-              value={this.state.directions || ""}
+              value={this.state.directions || ''}
             />
           </div>
         </form>

@@ -1,8 +1,8 @@
-"use strict";
-import React from "react";
-import PropTypes from "prop-types";
-import convert from "recipe-unit-converter";
-import { Link } from "react-router-dom";
+'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
+import convert from 'recipe-unit-converter';
+import { Link } from 'react-router-dom';
 
 class ScaleRecipe extends React.Component {
   constructor(props) {
@@ -129,7 +129,7 @@ class ScaleRecipe extends React.Component {
       return <option>{value}</option>;
     }
 
-    const nounType = parseInt(amount, 10) === 1 ? "singular" : "plural";
+    const nounType = parseInt(amount, 10) === 1 ? 'singular' : 'plural';
     const unitDescription = convert().describe(value);
     const unitType = unitDescription.measure;
     const unitPossibilities = convert().possibilities(unitType);
@@ -156,7 +156,7 @@ class ScaleRecipe extends React.Component {
             {index === 0 ? (
               <label htmlFor={`ingredient_amount_${index}`}>Quantity</label>
             ) : (
-              ""
+              ''
             )}
             <input
               className="form-control"
@@ -171,14 +171,14 @@ class ScaleRecipe extends React.Component {
               }
               placeholder="Quantity"
               type="text"
-              value={this.state.ingredients[index].amount || ""}
+              value={this.state.ingredients[index].amount || ''}
             />
           </div>
           <div className="form-group col-4">
             {index === 0 ? (
               <label htmlFor={`ingredient_unit_${index}`}>Unit</label>
             ) : (
-              ""
+              ''
             )}
             <select
               value={ingredient.unit}
@@ -200,7 +200,7 @@ class ScaleRecipe extends React.Component {
             {index === 0 ? (
               <label htmlFor={`ingredient_name_${index}`}>Name</label>
             ) : (
-              ""
+              ''
             )}
             <input
               readOnly
@@ -209,7 +209,7 @@ class ScaleRecipe extends React.Component {
               name={`ingredient_name_${index}`}
               placeholder="Name"
               type="text"
-              value={this.state.ingredients[index].name || ""}
+              value={this.state.ingredients[index].name || ''}
             />
           </div>
         </div>
@@ -243,7 +243,7 @@ class ScaleRecipe extends React.Component {
                 }
                 placeholder="Quantity"
                 type="text"
-                value={total.quantity || ""}
+                value={total.quantity || ''}
               />
             </div>
             <div className="form-group col-4">
@@ -271,14 +271,14 @@ class ScaleRecipe extends React.Component {
               rows="5"
               onChange={this.handleIngredientChange}
               placeholder="Directions"
-              value={this.state.directions || ""}
+              value={this.state.directions || ''}
             />
           </div>
         </form>
         <Link
           to={`/recipes/${this.props.recipe.id}/make`}
           onClick={() => {
-            sessionStorage.setItem("stateRecipe", JSON.stringify(this.state));
+            sessionStorage.setItem('stateRecipe', JSON.stringify(this.state));
           }}
           className="btn btn-primary"
         >

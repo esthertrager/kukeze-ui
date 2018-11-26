@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -23,11 +23,11 @@ class Profile extends React.Component {
   onClickSaveUser(e) {
     e.preventDefault();
     return fetch(`/api/users/${this.state.user._id}`, {
-      credentials: "include",
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify(this.state.user)
     })
       .then(response => {
@@ -38,7 +38,7 @@ class Profile extends React.Component {
       })
       .then(
         user => {
-          window.location.assign("/recipes");
+          window.location.assign('/recipes');
         },
         error => {
           error.then(e => alert(e));

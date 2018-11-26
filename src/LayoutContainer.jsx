@@ -1,13 +1,13 @@
-import React from "react";
-import App from "./App";
-import PropTypes from "prop-types";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import React from 'react';
+import App from './App';
+import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 class LayoutContainer extends React.Component {
   constructor(props) {
     super(props);
-    fetch("/api/recipes", {
-      credentials: "include"
+    fetch('/api/recipes', {
+      credentials: 'include'
     })
       .then(response => {
         return response.json();
@@ -18,8 +18,8 @@ class LayoutContainer extends React.Component {
         });
       });
 
-    fetch("/api/users/current", {
-      credentials: "include"
+    fetch('/api/users/current', {
+      credentials: 'include'
     })
       .then(response => {
         if (response.status === 204) {
@@ -118,7 +118,7 @@ class LayoutContainer extends React.Component {
               {this.renderUserDropdown()}
             </div>
           </nav>
-          <div className="container" style={{ paddingTop: "70px" }}>
+          <div className="container" style={{ paddingTop: '70px' }}>
             <div className="row">
               <div className="col-sm">{this.renderApp()}</div>
             </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 class RecipeForm extends React.Component {
   constructor(props) {
@@ -27,10 +27,10 @@ class RecipeForm extends React.Component {
     const value = input.value;
     const name = input.name;
 
-    const path = name.split("_");
+    const path = name.split('_');
 
     const index = path[2];
-    if (path[0] == "ingredient") {
+    if (path[0] == 'ingredient') {
       const ingredients = this.state.ingredients.map(ingredient => {
         return Object.assign({}, ingredient);
       });
@@ -55,7 +55,7 @@ class RecipeForm extends React.Component {
             {index === 0 ? (
               <label htmlFor={`ingredient_amount_${index}`}>Quantity</label>
             ) : (
-              ""
+              ''
             )}
             <input
               className="form-control"
@@ -64,14 +64,14 @@ class RecipeForm extends React.Component {
               onChange={this.handleInputChange}
               placeholder="Quantity"
               type="text"
-              value={this.state.ingredients[index].amount || ""}
+              value={this.state.ingredients[index].amount || ''}
             />
           </div>
           <div className="form-group col-4">
             {index === 0 ? (
               <label htmlFor={`ingredient_unit_${index}`}>Unit</label>
             ) : (
-              ""
+              ''
             )}
             <select
               value={ingredient.unit}
@@ -104,7 +104,7 @@ class RecipeForm extends React.Component {
             {index === 0 ? (
               <label htmlFor={`ingredient_name_${index}`}>Name</label>
             ) : (
-              ""
+              ''
             )}
             <input
               readOnly
@@ -113,7 +113,7 @@ class RecipeForm extends React.Component {
               name={`ingredient_name_${index}`}
               placeholder="Name"
               type="text"
-              value={this.state.ingredients[index].name || ""}
+              value={this.state.ingredients[index].name || ''}
             />
           </div>
         </div>
@@ -145,7 +145,7 @@ class RecipeForm extends React.Component {
                 onChange={this.handleInputChange}
                 placeholder="Quantity"
                 type="text"
-                value={total.quantity || ""}
+                value={total.quantity || ''}
               />
             </div>
             <div className="form-group col-4">
@@ -188,7 +188,7 @@ class RecipeForm extends React.Component {
               rows="5"
               onChange={this.props.handleInputChange}
               placeholder="Directions"
-              value={this.state.directions || ""}
+              value={this.state.directions || ''}
             />
           </div>
           <button className="btn">View</button>

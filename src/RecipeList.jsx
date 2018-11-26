@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class RecipeList extends React.Component {
   renderDeleteButton(userOwnsRecipe, recipe) {
@@ -25,7 +25,7 @@ class RecipeList extends React.Component {
 
       return (
         <li key={recipe.id}>
-          <Link to={`/recipes/${recipe.id}`}>{recipe.name} </Link>by{" "}
+          <Link to={`/recipes/${recipe.id}`}>{recipe.name} </Link>by{' '}
           {recipe.owner.name}
           {this.renderDeleteButton(userOwnsRecipe, recipe)}
         </li>
