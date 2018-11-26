@@ -204,7 +204,11 @@ class App extends React.Component {
               return _recipe.id === match.params.id;
             });
 
-            return <ScaleRecipe recipe={recipe} match={match} />;
+            return <ScaleRecipe 
+              recipe={recipe} 
+              match={match}
+              onClickSaveRecipe={this.onClickSaveRecipe} 
+              />;
           }}
         />
 

@@ -122,6 +122,43 @@ class ScaleRecipe extends React.Component {
     this.setState(scaledRecipe);
   }
 
+  onClickSaveRecipe(event, recipe) {
+    event.preventDefault();
+
+    const allUnits = [
+      ...convert().list('mass'),
+      ...convert().list('volume')
+    ].reduce((map, unit) => {
+      map[unit.singular.toLowerCase()] = unit.abbr;
+      map[unit.plural.toLowerCase()] = unit.abbr;
+      map[unit.abbr.toLowerCase()] = unit.abbr;
+      return map;
+    }, {});
+
+    recipe.ingredients = recipe.ingredients
+      .filter(ingredient => {
+        return (
+          ingredient &&
+          (ingredient.unit || ingredient.amount || ingredient.name)
+        );
+      })
+      .map(ingredient => {
+        if (!ingredient) {
+          return null;
+        }
+        const ingredientWithAbbr = Object.assign({}, ingredient);
+
+        ingredientWithAbbr.unit =
+          allUnits[ingredientWithAbbr.unit.toLowerCase()] ||
+          ingredientWithAbbr.unit;
+
+        return ingredientWithAbbr;
+      });
+    recipe.total.unit = allUnits[recipe.total.unit.toLowerCase()] || recipe.total.unit;
+
+    this.props.onClickSaveRecipe(event, recipe);
+  }
+
   renderOptions(value, amount) {
     const allUnitPossibilities = convert().possibilities();
 
@@ -284,6 +321,12 @@ class ScaleRecipe extends React.Component {
         >
           Make It
         </Link>
+        <button
+            className="btn"
+            onClick={event => this.onClickSaveRecipe(event, this.state)}
+          >
+            Update Recipe
+        </button>
       </div>
     );
   }
