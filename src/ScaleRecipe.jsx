@@ -334,6 +334,7 @@ class ScaleRecipe extends React.Component {
 
 ScaleRecipe.propTypes = {
   user: PropTypes.object,
+  onClickSaveRecipe: PropTypes.func.isRequired,
   recipe: PropTypes.object.isRequired
 };
 

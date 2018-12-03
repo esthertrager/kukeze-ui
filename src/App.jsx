@@ -194,10 +194,12 @@ class App extends React.Component {
               _recipe.url === match.params.url;
             });
 
-            return <MakeRecipe
-            recipe={recipe}
-            match={match}
-            />;
+            return (
+              <MakeRecipe
+                recipe={recipe}
+                match={match}
+              />
+            );
           }}
         />
 
@@ -209,11 +211,13 @@ class App extends React.Component {
               _recipe.url === match.params.url;
             });
 
-            return <ScaleRecipe
-              recipe={recipe}
-              match={match}
-              onClickSaveRecipe={this.onClickSaveRecipe}
-              />;
+            return (
+              <ScaleRecipe
+                recipe={recipe}
+                match={match}
+                onClickSaveRecipe={this.onClickSaveRecipe}
+              />
+            );
           }}
         />
 
