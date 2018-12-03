@@ -313,7 +313,7 @@ class ScaleRecipe extends React.Component {
           </div>
         </form>
         <Link
-          to={`/recipes/${this.props.recipe.id}/make`}
+          to={`/recipes/${this.props.recipe.owner.name}/${this.props.recipe.url}/make`}
           onClick={() => {
             sessionStorage.setItem('stateRecipe', JSON.stringify(this.state));
           }}
@@ -333,7 +333,7 @@ class ScaleRecipe extends React.Component {
 }
 
 ScaleRecipe.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   recipe: PropTypes.object.isRequired
 };
 

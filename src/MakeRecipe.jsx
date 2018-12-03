@@ -209,7 +209,7 @@ class MakeRecipe extends React.Component {
 
 MakeRecipe.propTypes = {
   recipe: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object
 };
 
 export default MakeRecipe;

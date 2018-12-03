@@ -81,7 +81,7 @@ Recipe.propTypes = {
   match: PropTypes.object.isRequired,
   onClickSaveRecipe: PropTypes.func.isRequired,
   recipe: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object
 };
 
 export default Recipe;

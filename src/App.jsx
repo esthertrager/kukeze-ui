@@ -187,36 +187,42 @@ class App extends React.Component {
         />
 
         <Route
-          path="/recipes/:id/make"
+          path="/recipes/:owner/:url/make"
           render={({ match }) => {
             const recipe = this.state.recipes.find(_recipe => {
-              return _recipe.id === match.params.id;
+              return _recipe.owner.name.toLowerCase() === match.params.owner.toLowerCase() &&
+              _recipe.url === match.params.url;
             });
 
-            return <MakeRecipe recipe={recipe} />;
+            return <MakeRecipe
+            recipe={recipe}
+            match={match}
+            />;
           }}
         />
 
         <Route
-          path="/recipes/:id/scale"
+          path="/recipes/:owner/:url/scale"
           render={({ match }) => {
             const recipe = this.state.recipes.find(_recipe => {
-              return _recipe.id === match.params.id;
+              return _recipe.owner.name.toLowerCase() === match.params.owner.toLowerCase() &&
+              _recipe.url === match.params.url;
             });
 
-            return <ScaleRecipe 
-              recipe={recipe} 
+            return <ScaleRecipe
+              recipe={recipe}
               match={match}
-              onClickSaveRecipe={this.onClickSaveRecipe} 
+              onClickSaveRecipe={this.onClickSaveRecipe}
               />;
           }}
         />
 
         <Route
-          path="/recipes/:id"
+          path="/recipes/:owner/:url"
           render={({ match }) => {
             const recipe = this.state.recipes.find(_recipe => {
-              return _recipe.id === match.params.id;
+              return _recipe.owner.name.toLowerCase() === match.params.owner.toLowerCase() &&
+              _recipe.url === match.params.url;
             });
 
             return (
@@ -224,7 +230,7 @@ class App extends React.Component {
                 recipe={recipe}
                 onClickSaveRecipe={this.onClickSaveRecipe}
                 match={match}
-                user={this.state.user}
+                user={this.state.owner}
               />
             );
           }}
@@ -235,7 +241,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   recipes: PropTypes.array.isRequired
 };
 

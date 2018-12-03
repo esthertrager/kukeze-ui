@@ -25,7 +25,7 @@ class RecipeList extends React.Component {
 
       return (
         <li key={recipe.id}>
-          <Link to={`/recipes/${recipe.id}`}>{recipe.name} </Link>by{' '}
+          <Link to={`/recipes/${recipe.owner.name}/${recipe.url}`}>{recipe.name} </Link>by{' '}
           {recipe.owner.name}
           {this.renderDeleteButton(userOwnsRecipe, recipe)}
         </li>
@@ -43,7 +43,7 @@ class RecipeList extends React.Component {
 
 RecipeList.propTypes = {
   onClickDeleteRecipe: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   recipes: PropTypes.array.isRequired
 };
 
