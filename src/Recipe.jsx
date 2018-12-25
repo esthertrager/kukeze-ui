@@ -25,7 +25,7 @@ class Recipe extends React.Component {
   onClickSaveRecipe(e, recipe) {
     e.preventDefault();
     this.props.onClickSaveRecipe(e, recipe).then(_recipe => {
-      window.location.assign(`${_recipe.id}`);
+      window.location.assign(`${_recipe.owner.name}/${_recipe.url}`);
     });
   }
 

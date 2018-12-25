@@ -2,12 +2,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import convert from 'recipe-unit-converter';
+import Modal from 'react-bootstrap/lib/Modal';
+import Button from 'react-bootstrap/lib/Button';
 import { Link } from 'react-router-dom';
 
 class ScaleRecipe extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, props.recipe);
+    this.state.isUpdated = false;
     this.handleIngredientChange = this.handleIngredientChange.bind(this);
     this.handleTotalChange = this.handleTotalChange.bind(this);
   }
@@ -156,7 +159,9 @@ class ScaleRecipe extends React.Component {
       });
     recipe.total.unit = allUnits[recipe.total.unit.toLowerCase()] || recipe.total.unit;
 
-    this.props.onClickSaveRecipe(event, recipe);
+    this.props.onClickSaveRecipe(event, recipe).then(() => this.setState({
+            isUpdated: true
+          }));
   }
 
   renderOptions(value, amount) {
@@ -254,11 +259,31 @@ class ScaleRecipe extends React.Component {
     });
   }
 
+  renderModal() {
+  return (
+    <div className="static-modal">
+      <Modal.Dialog>
+
+      <Modal.Body>Your recipe updated successfully!</Modal.Body>
+
+      <Modal.Footer>
+      <Button onClick={event => this.setState({
+            isUpdated: false})}>OK</Button>
+      </Modal.Footer>
+      </Modal.Dialog>
+    </div>
+  );
+}
+
   render() {
     const total = this.state.total || {};
 
+    if (this.state.isUpdated) {
+    	return this.renderModal();
+  	}
+
     return (
-      <div>
+    	<div>
         <h3>{this.state.name}</h3>
         <form>
           <div className="row">

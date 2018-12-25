@@ -14,7 +14,8 @@ class App extends React.Component {
 
     this.state = {
       recipes: this.props.recipes,
-      user: this.props.user
+      user: this.props.user,
+      isUpdated: false
     };
 
     this.onClickDeleteRecipe = this.onClickDeleteRecipe.bind(this);
@@ -70,6 +71,10 @@ class App extends React.Component {
             recipes
           });
 
+          this.setState({
+            isUpdated: true
+          });
+
           return recipe;
         });
     }
@@ -92,6 +97,10 @@ class App extends React.Component {
         this.setState({
           recipes
         });
+
+        this.setState({
+            isUpdated: false
+          });
 
         return recipe;
       });
@@ -234,7 +243,7 @@ class App extends React.Component {
                 recipe={recipe}
                 onClickSaveRecipe={this.onClickSaveRecipe}
                 match={match}
-                user={this.state.owner}
+                user={this.state.user}
               />
             );
           }}
