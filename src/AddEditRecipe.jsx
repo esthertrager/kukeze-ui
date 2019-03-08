@@ -139,13 +139,18 @@ class AddEditRecipe extends React.Component {
         }
         const ingredientWithAbbr = Object.assign({}, ingredient);
 
-        ingredientWithAbbr.unit =
-          allUnits[ingredientWithAbbr.unit.toLowerCase()] ||
-          ingredientWithAbbr.unit;
+        if (ingredientWithAbbr.unit) {
+	        ingredientWithAbbr.unit =
+	          allUnits[ingredientWithAbbr.unit.toLowerCase()] ||
+	          ingredientWithAbbr.unit;
+        }
 
         return ingredientWithAbbr;
       });
-    recipe.total.unit = allUnits[recipe.total.unit.toLowerCase()] || recipe.total.unit;
+
+      if (recipe.total && recipe.total.unit) {
+    	recipe.total.unit = allUnits[recipe.total.unit.toLowerCase()] || recipe.total.unit;
+    }
 
     this.props.onClickSaveRecipe(event, recipe);
   }
@@ -164,7 +169,7 @@ class AddEditRecipe extends React.Component {
       <ReactAutocomplete
         items={items}
         shouldItemRender={(item, value) =>
-          item.label.toLowerCase().indexOf(value.toLowerCase()) > -1
+          item.label && value && item.label.toLowerCase().indexOf(value.toLowerCase()) > -1
         }
         getItemValue={item => item.label}
         value={unitValue}
